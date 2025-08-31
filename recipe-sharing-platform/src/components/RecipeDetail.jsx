@@ -16,6 +16,9 @@ const RecipeDetail = () => {
     return <p className="text-center text-gray-600 mt-10">Recipe not found</p>;
   }
 
+  // Use instructions if available, otherwise fallback to steps
+  const instructionsList = recipe.instructions || recipe.steps || [];
+
   return (
     <div className="p-6 bg-gray-50 min-h-screen flex justify-center">
       <div className="bg-white shadow-lg rounded-lg p-8 max-w-3xl w-full">
@@ -43,14 +46,14 @@ const RecipeDetail = () => {
           ))}
         </ul>
 
-        {/* Steps */}
+        {/* Instructions */}
         <h2 className="text-2xl font-semibold text-gray-800 mb-2">
-          👩‍🍳 Preparation Steps
+          👩‍🍳 Instructions
         </h2>
         <ol className="list-decimal list-inside space-y-2">
-          {recipe.steps.map((step, index) => (
+          {instructionsList.map((instruction, index) => (
             <li key={index} className="text-gray-700">
-              {step}
+              {instruction}
             </li>
           ))}
         </ol>

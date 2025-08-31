@@ -5,7 +5,7 @@
       "description": "A classic Italian pasta dish made with eggs, cheese, pancetta, and pepper.",
       "image": "https://source.unsplash.com/400x300/?pasta",
       "ingredients": ["200g spaghetti", "100g pancetta", "2 eggs", "50g parmesan cheese", "Black pepper"],
-      "instructions": [
+      "summary": [
         "Cook spaghetti according to package instructions.",
         "Fry pancetta until crispy.",
         "Whisk eggs and parmesan together.",
@@ -19,7 +19,7 @@
       "description": "Toasted bread topped with mashed avocado, salt, pepper, and a squeeze of lemon.",
       "image": "https://source.unsplash.com/400x300/?avocado",
       "ingredients": ["2 slices of bread", "1 ripe avocado", "Salt", "Pepper", "Lemon juice"],
-      "instructions": [
+      "summary": [
         "Toast the bread slices.",
         "Mash avocado with salt, pepper, and lemon juice.",
         "Spread avocado mix on toast.",

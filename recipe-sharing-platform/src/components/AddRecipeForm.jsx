@@ -5,18 +5,38 @@ const AddRecipeForm = () => {
   const [ingredients, setIngredients] = useState("");
   const [steps, setSteps] = useState("");
   const [error, setError] = useState("");
+  const [errors, setErrors] = useState({});
+
+  const validate = () => {
+    const newErrors = {};
+
+    if (!title.trim()) {
+      newErrors.title = "Recipe title is required";
+    }
+
+    if (!ingredients.trim()) {
+      newErrors.ingredients = "Ingredients are required";
+    } else {
+      const ingredientsList = ingredients.split("\n").filter((item) => item.trim() !== "");
+      if (ingredientsList.length < 2) {
+        newErrors.ingredients = "Please enter at least 2 ingredients";
+      }
+    }
+
+    if (!steps.trim()) {
+      newErrors.steps = "Instructions are required";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setError("");
 
-    if (!title || !ingredients || !steps) {
-      setError("⚠️ Please fill in all fields before submitting.");
-      return;
-    }
-
-    const ingredientsList = ingredients.split("\n").filter((item) => item.trim() !== "");
-    if (ingredientsList.length < 2) {
-      setError("⚠️ Please enter at least 2 ingredients.");
+    if (!validate()) {
+      setError("⚠️ Please fix the errors below before submitting.");
       return;
     }
 
@@ -35,6 +55,7 @@ const AddRecipeForm = () => {
     setIngredients("");
     setSteps("");
     setError("");
+    setErrors({});
     alert("🎉 Recipe submitted successfully!");
   };
 
@@ -58,9 +79,14 @@ const AddRecipeForm = () => {
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                errors.title ? 'border-red-500' : 'border-gray-300'
+              }`}
               placeholder="Enter recipe title"
             />
+            {errors.title && (
+              <p className="mt-1 text-sm text-red-600">{errors.title}</p>
+            )}
           </div>
           
           <div>
@@ -71,9 +97,14 @@ const AddRecipeForm = () => {
               value={ingredients}
               onChange={(e) => setIngredients(e.target.value)}
               rows={4}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                errors.ingredients ? 'border-red-500' : 'border-gray-300'
+              }`}
               placeholder="Enter ingredients, one per line"
             />
+            {errors.ingredients && (
+              <p className="mt-1 text-sm text-red-600">{errors.ingredients}</p>
+            )}
           </div>
           
           <div>
@@ -84,9 +115,14 @@ const AddRecipeForm = () => {
               value={steps}
               onChange={(e) => setSteps(e.target.value)}
               rows={6}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                errors.steps ? 'border-red-500' : 'border-gray-300'
+              }`}
               placeholder="Enter cooking steps, one per line"
             />
+            {errors.steps && (
+              <p className="mt-1 text-sm text-red-600">{errors.steps}</p>
+            )}
           </div>
           
           <button
